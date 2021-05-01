@@ -17,13 +17,13 @@ namespace Tests
         }
         
         [Test]
-        public void GetGrid_Initialize_IsEightByEight()
+        public void Grid_IsEightByEight()
         {
             Assert.That(_grid.Area.Length, Is.EqualTo(64));
         }
 
         [Test]
-        public void InitGrid_HasRover()
+        public void Grid_HasRover()
         {
             _rover.SetRoverPosition(4, 5);
             
@@ -31,7 +31,7 @@ namespace Tests
        }
         
         [Test]
-        public void InitGrid_RoverCanMoveForward()
+        public void Rover_CanMoveForward()
         {
             _rover.SetRoverPosition(4, 5);
 
@@ -41,13 +41,25 @@ namespace Tests
         }
         
         [Test]
-        public void InitGrid_RoverCanMoveBackward()
+        public void Rover_CanMoveBackward()
         {
             _rover.SetRoverPosition(4, 4);
 
             _rover.Move("B");
 
             Assert.That(_grid.Area[4, 5], Is.EqualTo("R"));
+        }
+
+        [Test]
+        public void Rover_CanTurnLeft()
+        {
+            _rover.SetRoverPosition(0,0);
+            _rover.SetRoverDirection("N");
+
+            _rover.Move("L");
+
+
+            Assert.AreEqual("W", _rover.Direction);
         }
         
     }

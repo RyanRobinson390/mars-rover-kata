@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Tests
 {
@@ -11,6 +12,8 @@ namespace Tests
     public class Rover
     {
         public int[] Position { get; set; } = new int[2];
+
+        public string Direction { get; private set; } = "N";
 
         private readonly Grid _grid;
 
@@ -26,8 +29,18 @@ namespace Tests
 
             if (command == "B")
                 MoveBackward(command);
+
+            if (command == "L")
+                RotateLeft("L");
         }
 
+        private void RotateLeft(string command)
+        {
+            Direction dir;
+            
+            Direction = "W";
+        }
+        
         private void MoveBackward(string command)
         {
             Position[1]++;
@@ -53,6 +66,62 @@ namespace Tests
             _grid.Area[x, y] = "R";
             Position[0] = x;
             Position[1] = y; 
+        }
+
+        public void SetRoverDirection(string direction)
+        {
+            Direction = direction;
+        }
+    }
+
+    public class Direction
+    {
+        public string Current { get; set; }
+        public string RightPosition { get; set; }
+        public string LeftPosition { get; set; }
+        
+        public Direction(string current, string rightPosition, string leftPosition)
+        {
+            Current = current;
+            RightPosition = rightPosition;
+            LeftPosition = leftPosition;
+        }
+
+        public static Direction GetDirection(string currentPosition)
+        {
+            return GetDirections().Single(x => x.Current == currentPosition);
+        }
+        
+        private static List<Direction> GetDirections()
+        {
+            var directions = new List<Direction>();
+            
+            directions.Add(new Direction("N", "E", "W"));
+            directions.Add(new Direction("E", "S", "N"));
+            directions.Add(new Direction("S", "W", "E"));
+            directions.Add(new Direction("W", "N", "S"));
+
+            return directions; 
+        }
+    }
+
+    public class Rotator
+    {
+        public void Rotate(string rotation, string currentDirection)
+        {
+            var intendedDirection = Direction.GetDirection(currentDirection);
+            string newDirection;
+            
+            if (currentDirection == "N")
+            {
+                currentDirection = DetermineNewDirection(rotation, intendedDirection);
+            }
+
+        }
+
+        private string DetermineNewDirection(string rotation, Direction intendedDirection)
+        {
+            return rotation == "L" ? intendedDirection.LeftPosition : intendedDirection.RightPosition; 
         }
     }
 }
