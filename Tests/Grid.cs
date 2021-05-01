@@ -107,16 +107,10 @@ namespace Tests
 
     public class Rotator
     {
-        public void Rotate(string rotation, string currentDirection)
+        public string Rotate(string rotation, string currentDirection)
         {
             var intendedDirection = Direction.GetDirection(currentDirection);
-            string newDirection;
-            
-            if (currentDirection == "N")
-            {
-                currentDirection = DetermineNewDirection(rotation, intendedDirection);
-            }
-
+            return DetermineNewDirection(rotation, intendedDirection);
         }
 
         private string DetermineNewDirection(string rotation, Direction intendedDirection)
