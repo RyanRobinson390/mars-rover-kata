@@ -47,15 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Direction.cs" />
-    <Compile Include="Grid.cs" />
-    <Compile Include="Rotator.cs" />
-    <Compile Include="Rover.cs" />
     <Compile Include="RoversTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarsRover.Logic\MarsRover.Logic.csproj">
+      <Project>{8bead060-e49a-457d-bfdd-52860cf180f0}</Project>
+      <Name>MarsRover.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

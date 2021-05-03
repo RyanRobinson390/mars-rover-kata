@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace MarsRover.Tests
+namespace MarsRover.Logic
 {
     public class Direction
     {

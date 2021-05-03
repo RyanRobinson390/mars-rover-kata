@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MarsRover.Logic;
+using NUnit.Framework;
 
 namespace MarsRover.Tests
 {
