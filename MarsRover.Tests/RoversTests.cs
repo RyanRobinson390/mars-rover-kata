@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Tests
+namespace MarsRover.Tests
 {
     [TestFixture]
     public class RoversTests
@@ -17,9 +16,9 @@ namespace Tests
         }
         
         [Test]
-        public void Grid_IsEightByEight()
+        public void Grid_IsFiveByFive_IncludingZeroCoordinates()
         {
-            Assert.That(_grid.Area.Length, Is.EqualTo(64));
+            Assert.That(_grid.Area.Length, Is.EqualTo(36));
         }
 
         [Test]
@@ -35,7 +34,7 @@ namespace Tests
         {
             _rover.SetRoverPosition(4, 5);
 
-            _rover.Move("F");
+            _rover.ExecuteCommand("F");
 
             Assert.That(_grid.Area[4, 4], Is.EqualTo("R"));
         }
@@ -45,22 +44,19 @@ namespace Tests
         {
             _rover.SetRoverPosition(4, 4);
 
-            _rover.Move("B");
+            _rover.ExecuteCommand("B");
 
             Assert.That(_grid.Area[4, 5], Is.EqualTo("R"));
         }
-
-        [Test]
-        public void Rover_CanTurnLeft()
-        {
-            _rover.SetRoverPosition(0,0);
-            _rover.SetRoverDirection("N");
-
-            _rover.Move("L");
-
-
-            Assert.AreEqual("W", _rover.Direction);
-        }
         
+        [TestCase("L", "N", "W")]
+        [TestCase("R", "W", "N")]
+        public void Rover_CanRotate(string intendedRotation, string initialDirection, string expectedDirection)
+        {
+            _rover.SetRoverDirection(initialDirection);
+            _rover.ExecuteCommand(intendedRotation);
+            
+            Assert.AreEqual(expectedDirection, _rover.CurrentDirection);
+        }
     }
 }
