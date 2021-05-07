@@ -14,8 +14,10 @@ namespace MarsRover.Tests
         {
             _grid = new Grid();
             _rover = new Rover(_grid); 
+            
+            SetupRover();
         }
-        
+
         [Test]
         public void Grid_IsFiveByFive_IncludingZeroCoordinates()
         {
@@ -58,6 +60,25 @@ namespace MarsRover.Tests
             _rover.ExecuteCommand(intendedRotation);
             
             Assert.AreEqual(expectedDirection, _rover.CurrentDirection);
+        }
+        
+        [Test]
+        public void RoverMovesWithDirection_ToCorrectPositon()
+        {
+            _rover.ExecuteCommand("F");
+            _rover.ExecuteCommand("R");
+            _rover.ExecuteCommand("F");
+
+            var expectedPosition = new Position(1, 1); 
+            
+            Assert.AreEqual(expectedPosition.X, 1);
+            Assert.AreEqual(expectedPosition.Y, 1);
+        }
+        
+        private void SetupRover()
+        {
+            _rover.SetRoverDirection("N");
+            _rover.SetRoverPosition(0, 0);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MarsRover.Logic
         public string RightPosition { get; set; }
         public string LeftPosition { get; set; }
 
-        private Direction(string current, string rightPosition, string leftPosition)
+        public Direction(string current, string rightPosition, string leftPosition)
         {
             Current = current;
             RightPosition = rightPosition;

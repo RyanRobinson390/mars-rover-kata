@@ -2,7 +2,9 @@
 {
     public class Rover
     {
-        public int[] Position { get; set; } = new int[2];
+        public Position CurrentPosition { get; private set; }
+        
+        //public int[] CurrentPosition { get; set; } = new int[2];
 
         public string CurrentDirection { get; private set; }
 
@@ -13,24 +15,25 @@
         public Rover(Grid grid)
         {
             _grid = grid;
+            CurrentPosition = new Position(0, 0);
         }
 
         public void ExecuteCommand(string command)
         {
             if (command == "F")
-                MoveForward(command);
+                MoveForward();
 
             if (command == "B")
-                MoveBackward(command);
+                MoveBackward();
 
             if (command == "L" || command == "R")
                 DoRotation(command);
         }
         public void SetRoverPosition(int x, int y)
         {
+            CurrentPosition.X = x;
+            CurrentPosition.Y = y;
             _grid.Area[x, y] = "R";
-            Position[0] = x;
-            Position[1] = y; 
         }
 
         public void SetRoverDirection(string direction)
@@ -43,24 +46,45 @@
             CurrentDirection = newDirection;
         }
         
-        private void MoveBackward(string command)
+        private void MoveBackward()
         {
-            Position[1]++;
+            switch (CurrentDirection)
+            {
+                case "N":
+                    CurrentPosition.Y++;
+                    break;
+                case "E":
+                    CurrentPosition.X++;
+                    break;
+                case "S":
+                    CurrentPosition.Y--;
+                    break;
+                case "W":
+                    CurrentPosition.X--;
+                    break;
+            }
 
-            var x = Position[0];
-            var y = Position[1];
-
-            _grid.Area[x, y] = "R";
+            _grid.Area[CurrentPosition.X, CurrentPosition.Y] = "R";
         }
 
-        private void MoveForward(string command)
+        private void MoveForward()
         {
-            Position[1]--;
-
-            var x = Position[0];
-            var y = Position[1];
-
-            _grid.Area[x, y] = "R";
+            switch (CurrentDirection)
+            {
+                case "N":
+                    CurrentPosition.Y++;
+                    break;
+                case "E":
+                    CurrentPosition.X++;
+                    break;
+                case "S":
+                    CurrentPosition.Y--;
+                    break;
+                case "W":
+                    CurrentPosition.X--;
+                    break;
+            }
+            _grid.Area[CurrentPosition.X, CurrentPosition.Y] = "R";
         }
     }
 }
