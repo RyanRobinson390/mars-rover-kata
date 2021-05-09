@@ -27,7 +27,7 @@ namespace MarsRover.Tests
         [Test]
         public void Grid_HasRover()
         {
-            _rover.SetRoverPosition(4, 5);
+            _rover.Navigator.SetRoverPosition(4, 5);
             Assert.That(_grid.Area[4, 5], Is.EqualTo("R"));
        }
         
@@ -36,29 +36,29 @@ namespace MarsRover.Tests
         {
             _rover.ExecuteCommand("F");
         
-            Assert.AreEqual(_rover.CurrentPosition.X, 0);
-            Assert.AreEqual(_rover.CurrentPosition.Y, 1);
+            Assert.AreEqual(_rover.Navigator.CurrentPosition.X, 0);
+            Assert.AreEqual(_rover.Navigator.CurrentPosition.Y, 1);
         }
         
         
         [Test]
         public void Rover_CanMoveBackward()
         {
-            _rover.SetRoverPosition(4, 4);
+            _rover.Navigator.SetRoverPosition(4, 4);
             _rover.ExecuteCommand("B");
 
-            Assert.AreEqual(_rover.CurrentPosition.X, 4);
-            Assert.AreEqual(_rover.CurrentPosition.Y, 3);
+            Assert.AreEqual(_rover.Navigator.CurrentPosition.X, 4);
+            Assert.AreEqual(_rover.Navigator.CurrentPosition.Y, 3);
         }
         
         [TestCase("L", "N", "W")]
         [TestCase("R", "W", "N")]
         public void Rover_CanRotate(string intendedRotation, string initialDirection, string expectedDirection)
         {
-            _rover.SetRoverDirection(initialDirection);
+            _rover.Navigator.SetRoverDirection(initialDirection);
             _rover.ExecuteCommand(intendedRotation);
             
-            Assert.AreEqual(expectedDirection, _rover.CurrentDirection);
+            Assert.AreEqual(expectedDirection, _rover.Navigator.CurrentDirection);
         }
         
         [Test]
@@ -76,8 +76,8 @@ namespace MarsRover.Tests
         
         private void SetupRover()
         {
-            _rover.SetRoverDirection("N");
-            _rover.SetRoverPosition(0, 0);
+            _rover.Navigator.SetRoverDirection("N");
+            _rover.Navigator.SetRoverPosition(0, 0);
         }
     }
 }
